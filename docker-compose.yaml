@@ -1,0 +1,33 @@
+version: '7'
+
+services:
+  myapp:
+    container_name: backend-server
+    image: cloud
+    build: ./
+    ports:
+      - '8090:8090'
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/netology
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysql
+      SPRING_JPA_HIBERNATE_DDL-AUTO: update
+      SPRING_LIQUIBASE_URL: jdbc:mysql://database:3306/netology
+      SPRING_LIQUIBASE_USER: root
+      SPRING_LIQUIBASE_PASSWORD: mysql
+
+
+  database:
+    container_name: database-server
+    image: mysql
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: netology
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: mysql
+      MYSQL_ROOT_PASSWORD: mysql
+
+
